@@ -6,7 +6,6 @@ export default {
   },
 
   addEvent: ({ dispatch }, payload) => {
-    console.log(payload)
     var myHeaders = new Headers()
     myHeaders.append('Content-Type', 'application/json')
 
@@ -18,15 +17,16 @@ export default {
       method: 'POST',
       headers: myHeaders,
       body: raw,
-      mode: 'no-cors'
+      redirect: 'follow'
     }
 
     fetch('https://distinct-mature-appliance.glitch.me/addEvent', requestOptions)
-      .then(res => res.text())
+      .then(response => response.text())
       .then(result => {
         console.log(result)
         dispatch('getEvents')
       })
+      .catch(error => console.log('error', error))
   },
 
   getParticipants: ({ commit }) => {
